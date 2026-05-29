@@ -3,416 +3,367 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Mean as Balance Point — Ganita Prakash Grade 8</title>
+<title>Mean Balance — Ch. 13</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#f5f4f0;
-  --surface:#ffffff;
-  --surface2:#f0ede8;
-  --border:#d8d4cc;
-  --border-hi:#b8b2a8;
-  --text:#1a1814;
-  --text2:#5a5650;
-  --text3:#9a958e;
-  --accent:#c0392b;
-  --accent2:#2c7be5;
-  --green:#1a7a4a;
-  --font:'DM Sans',-apple-system,sans-serif;
-  --mono:'DM Mono',ui-monospace,monospace;
+  --bg:#0f0d0b;--surface:#181512;--surface2:#201d18;
+  --chalk:#f0ece3;--chalk2:#b8b2a7;--chalk3:#716b62;--rule:#2a2520;
+  --blue:#6ba3d6;--green:#5dbf8a;--amber:#e8a840;--red:#e07070;
+  --display:'Playfair Display',Georgia,serif;
+  --mono:'DM Mono',monospace;--body:'DM Sans',sans-serif;
 }
-html{scroll-behavior:smooth}
-body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased;line-height:1.5}
-button{font-family:var(--font);cursor:pointer}
-svg text{user-select:none}
+html,body{background:var(--bg);color:var(--chalk)}
+body{font-family:var(--body);min-height:100vh;-webkit-font-smoothing:antialiased;padding:0}
 
-.page{max-width:780px;margin:0 auto;padding:32px 24px}
-.label{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
-.title{font-size:22px;font-weight:700;color:var(--text);margin-bottom:6px}
-.subtitle{font-size:14px;color:var(--text2);margin-bottom:28px;max-width:560px;line-height:1.55}
+/* HEADER */
+.header{padding:20px 24px 16px;border-bottom:1px solid var(--rule)}
+.chap-tag{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--chalk3);margin-bottom:7px}
+.main-title{font-family:var(--display);font-size:clamp(28px,7vw,56px);font-weight:900;
+  line-height:.95;color:var(--chalk)}
+.main-title em{font-style:italic;color:var(--amber)}
+.subtitle{font-family:var(--mono);font-size:12px;color:var(--chalk3);margin-top:8px;
+  max-width:520px;line-height:1.65}
 
-.card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px}
-.card-title{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:16px;letter-spacing:.03em}
+/* MODE STRIP */
+.mode-strip{padding:10px 24px;background:var(--surface);border-bottom:1px solid var(--rule);
+  display:flex;gap:6px;flex-wrap:wrap}
+.mode-btn{padding:7px 14px;border:1px solid var(--chalk3);background:transparent;
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--chalk3);cursor:pointer;transition:all .12s;
+  -webkit-tap-highlight-color:transparent}
+.mode-btn.active{background:var(--chalk);color:var(--bg);border-color:var(--chalk)}
+.mode-btn:hover:not(.active){color:var(--chalk);border-color:var(--chalk)}
 
-/* Controls */
-.controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
-.btn{background:var(--surface);border:1.5px solid var(--border);border-radius:8px;padding:8px 16px;font-size:13px;font-weight:500;color:var(--text);transition:all .15s;white-space:nowrap}
-.btn:hover{border-color:var(--accent);color:var(--accent)}
-.btn.danger{border-color:#e8c5c5;color:#c0392b}
-.btn.danger:hover{background:#fff0f0}
-.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-.btn.primary:hover{background:#a93226}
+/* PRESETS */
+.preset-bar{padding:10px 24px;border-bottom:1px solid var(--rule);
+  display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.pb-lbl{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--chalk3);margin-right:4px;flex-shrink:0}
+.p-btn{padding:5px 12px;border:1px solid var(--rule);background:transparent;
+  font-family:var(--mono);font-size:11px;font-weight:600;color:var(--chalk3);
+  cursor:pointer;transition:all .12s;-webkit-tap-highlight-color:transparent}
+.p-btn:hover{border-color:var(--chalk3);color:var(--chalk)}
 
-/* Stats row */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-bottom:20px}
-.stat{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:14px 16px}
-.stat-label{font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
-.stat-val{font-family:var(--mono);font-size:22px;font-weight:500;color:var(--text)}
-.stat-val.mean{color:var(--accent)}
+/* CANVAS (balance beam) */
+.beam-section{background:var(--bg);border-bottom:1px solid var(--rule);
+  padding:8px 0}
+canvas#beam-cvs{display:block;width:100%;cursor:crosshair}
 
-/* Canvas wrapper */
-.canvas-wrap{position:relative;width:100%}
-canvas{display:block;width:100%;cursor:crosshair;border-radius:8px}
-canvas.dragging{cursor:grabbing}
+/* NUMBER LINE */
+.numline-section{background:var(--surface);border-bottom:1px solid var(--rule);padding:8px 0}
+canvas#numline-cvs{display:block;width:100%}
+.nl-hint{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--chalk3);text-align:center;padding:5px 0;opacity:.5}
 
-/* Insight */
-.insight{background:#fff8f0;border:1.5px solid #f0d8c0;border-radius:10px;padding:14px 18px;font-size:13.5px;color:#6b4400;line-height:1.55;margin-top:16px}
-.insight strong{color:#a05000}
+/* STATS */
+.stats-section{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));
+  border-bottom:1px solid var(--rule)}
+.stat-cell{padding:14px 16px;border-right:1px solid var(--rule)}
+.stat-cell:last-child{border-right:none}
+.stat-lbl{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--chalk3);margin-bottom:4px}
+.stat-big{font-family:var(--display);font-size:clamp(20px,3.5vw,32px);line-height:1;color:var(--chalk)}
+.stat-big.amber{color:var(--amber)}
+.stat-big.green{color:var(--green)}
+.stat-big.red{color:var(--red)}
 
-/* Dot list */
-.dot-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.dot-chip{background:var(--surface2);border:1.5px solid var(--border);border-radius:6px;padding:4px 10px;font-family:var(--mono);font-size:13px;color:var(--text);position:relative}
-.dot-chip .remove{position:absolute;top:-5px;right:-5px;width:16px;height:16px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;line-height:1;opacity:0;transition:opacity .1s}
-.dot-chip:hover .remove{opacity:1}
+/* DOT CHIPS */
+.dots-section{padding:14px 24px;border-bottom:1px solid var(--rule);
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.dot-lbl{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--chalk3);margin-right:4px;flex-shrink:0}
+.dot-chip{padding:5px 11px;border:1px solid var(--rule);background:var(--surface2);
+  font-family:var(--display);font-size:16px;color:var(--chalk);position:relative;
+  cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s}
+.dot-chip:hover,.dot-chip.touch-active{background:#b83020;border-color:#b83020}
+.dot-chip:hover::after{content:'×';position:absolute;top:-5px;right:-5px;
+  width:16px;height:16px;background:#b83020;color:#fff;font-size:11px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-weight:700;line-height:16px;text-align:center}
 
-.hint{font-size:12px;color:var(--text3);margin-top:10px}
-
-/* Mode toggle */
-.mode-row{display:flex;gap:8px;margin-bottom:16px}
-.mode-btn{flex:1;padding:8px;border:1.5px solid var(--border);border-radius:8px;font-size:12.5px;font-weight:500;color:var(--text2);background:var(--surface);transition:all .15s;cursor:pointer}
-.mode-btn.active{border-color:var(--accent);color:var(--accent);background:#fff5f5}
+/* INSIGHT */
+.insight-row{padding:16px 24px;display:grid;grid-template-columns:3px 1fr;gap:14px;
+  border-top:1px solid var(--rule)}
+.ins-bar{background:var(--amber)}
+.ins-text{font-size:13px;line-height:1.75;color:var(--chalk2)}
+.ins-text strong{color:var(--chalk)}
 </style>
 </head>
 <body>
-<div class="page">
-  <div class="label">Chapter 5 · Tales by Dots and Lines</div>
-  <div class="title">Mean as Balance Point</div>
-  <div class="subtitle">The mean is not just a calculation — it is the point where the data perfectly balances. Click on the number line to place values and see why the mean is the only balance point.</div>
 
-  <div class="card">
-    <div class="mode-row">
-      <button class="mode-btn active" id="modeAdd">Click to add dots</button>
-      <button class="mode-btn" id="modeRemove">Click dot to remove</button>
-    </div>
+<div class="header">
+  <div class="chap-tag">Ch. 13 · Number Patterns &amp; Tricks</div>
+  <div class="main-title">Mean as <em>Balance</em></div>
+  <div class="subtitle">The mean is the fulcrum where data balances. Click the number line to place values — the beam tilts until you put data on both sides of the mean.</div>
+</div>
 
-    <div class="controls">
-      <button class="btn" id="btnPreset1">Example: 3 and 7</button>
-      <button class="btn" id="btnPreset2">Example: 10, 10, 11, 17</button>
-      <button class="btn" id="btnPreset3">Example: 3, 5, 6, 8, 13</button>
-      <button class="btn danger" id="btnClear">Clear all</button>
-    </div>
+<div class="mode-strip">
+  <button class="mode-btn active" id="mode-add">Click to add</button>
+  <button class="mode-btn" id="mode-rm">Click dot to remove</button>
+</div>
 
-    <div class="canvas-wrap">
-      <canvas id="cvs" height="180"></canvas>
-    </div>
-    <p class="hint">The red line is the mean. The coloured segments show distances from each dot to the mean. Distances on the left and right always sum to the same value.</p>
-  </div>
+<div class="preset-bar">
+  <span class="pb-lbl">Example</span>
+  <button class="p-btn" data-v="3,7">3 and 7</button>
+  <button class="p-btn" data-v="10,10,11,17">10,10,11,17</button>
+  <button class="p-btn" data-v="3,5,6,8,13">3,5,6,8,13</button>
+  <button class="p-btn" id="p-clear">Clear</button>
+</div>
 
-  <div class="stats" id="statsRow" style="display:none">
-    <div class="stat">
-      <div class="stat-label">Values</div>
-      <div class="stat-val" id="statN">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Sum</div>
-      <div class="stat-val" id="statSum">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Mean</div>
-      <div class="stat-val mean" id="statMean">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Left distances</div>
-      <div class="stat-val" id="statLeft">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Right distances</div>
-      <div class="stat-val" id="statRight">—</div>
-    </div>
-  </div>
+<div class="beam-section">
+  <canvas id="beam-cvs" height="180"></canvas>
+</div>
 
-  <div class="dot-list" id="dotList"></div>
-  <div class="insight" id="insight" style="display:none"></div>
+<div class="numline-section">
+  <canvas id="numline-cvs" height="80"></canvas>
+  <div class="nl-hint" id="nl-hint">click the number line to place a value</div>
+</div>
+
+<div class="stats-section" id="stats-section" style="display:none">
+  <div class="stat-cell"><div class="stat-lbl">Count</div><div class="stat-big" id="s-n">—</div></div>
+  <div class="stat-cell"><div class="stat-lbl">Sum</div><div class="stat-big" id="s-sum">—</div></div>
+  <div class="stat-cell"><div class="stat-lbl">Mean</div><div class="stat-big amber" id="s-mean">—</div></div>
+  <div class="stat-cell"><div class="stat-lbl">Left dist.</div><div class="stat-big green" id="s-left">—</div></div>
+  <div class="stat-cell"><div class="stat-lbl">Right dist.</div><div class="stat-big red" id="s-right">—</div></div>
+</div>
+
+<div class="dots-section" id="dots-section" style="display:none">
+  <span class="dot-lbl">Values</span>
+  <div id="dot-chips" style="display:flex;gap:6px;flex-wrap:wrap"></div>
+</div>
+
+<div class="insight-row">
+  <div class="ins-bar"></div>
+  <p class="ins-text" id="insight-text">Add some values to see the balance principle in action.</p>
 </div>
 
 <script>
-const cvs = document.getElementById('cvs');
-const ctx = cvs.getContext('2d');
-const btnClear = document.getElementById('btnClear');
-const btnPreset1 = document.getElementById('btnPreset1');
-const btnPreset2 = document.getElementById('btnPreset2');
-const btnPreset3 = document.getElementById('btnPreset3');
-const statsRow = document.getElementById('statsRow');
-const insightEl = document.getElementById('insight');
-const dotListEl = document.getElementById('dotList');
-const modeAdd = document.getElementById('modeAdd');
-const modeRemove = document.getElementById('modeRemove');
+const RANGE_MIN=0,RANGE_MAX=20,DOT_R=10;
+let values=[],mode='add';
 
-let values = [];
-let mode = 'add'; // 'add' or 'remove'
-
-// Number line range
-const RANGE_MIN = 0;
-const RANGE_MAX = 20;
-const DOT_R = 10;
-
-function getCanvasRect(){
-  const r = cvs.getBoundingClientRect();
-  return r;
-}
+function mean(arr){return arr.length?arr.reduce((a,b)=>a+b,0)/arr.length:0;}
+function fmt(n){return n%1===0?String(n):(Math.round(n*100)/100).toString();}
 
 function resize(){
-  const w = cvs.parentElement.clientWidth;
-  cvs.width = w * devicePixelRatio;
-  cvs.height = 180 * devicePixelRatio;
-  cvs.style.width = w + 'px';
-  cvs.style.height = '180px';
-  ctx.scale(devicePixelRatio, devicePixelRatio);
-  draw();
-}
-
-function valToX(v, w){
-  const PAD = 40;
-  return PAD + ((v - RANGE_MIN)/(RANGE_MAX - RANGE_MIN))*(w - PAD*2);
-}
-
-function xToVal(x, w){
-  const PAD = 40;
-  const v = RANGE_MIN + (x - PAD)/(w - PAD*2) * (RANGE_MAX - RANGE_MIN);
-  return Math.round(Math.max(RANGE_MIN, Math.min(RANGE_MAX, v)));
-}
-
-function mean(arr){
-  if(!arr.length) return 0;
-  return arr.reduce((a,b)=>a+b,0)/arr.length;
-}
-
-function draw(){
-  const W = cvs.width / devicePixelRatio;
-  const H = cvs.height / devicePixelRatio;
-  ctx.clearRect(0,0,W,H);
-
-  const axisY = H * 0.62;
-  const m = mean(values);
-
-  // Background
-  ctx.fillStyle = '#fafaf8';
-  ctx.fillRect(0,0,W,H);
-  ctx.strokeStyle = '#e8e4de';
-  ctx.lineWidth = 1;
-  ctx.strokeRect(0,0,W,H);
-
-  // Draw distance segments if values exist
-  if(values.length > 0){
-    const meanX = valToX(m, W);
-
-    // Left distances (values < mean)
-    let leftDist = 0, rightDist = 0;
-    values.forEach(v => {
-      if(v < m) leftDist += (m - v);
-      if(v > m) rightDist += (v - m);
-    });
-
-    // Draw arm lines from mean to each dot
-    values.forEach((v, i) => {
-      const vx = valToX(v, W);
-      const isLeft = v < m;
-      const isRight = v > m;
-      if(isLeft || isRight){
-        ctx.beginPath();
-        ctx.strokeStyle = isLeft ? 'rgba(44,123,229,0.3)' : 'rgba(192,57,43,0.3)';
-        ctx.lineWidth = 4;
-        ctx.moveTo(vx, axisY);
-        ctx.lineTo(meanX, axisY);
-        ctx.stroke();
-      }
-    });
-  }
-
-  // Axis line
-  ctx.beginPath();
-  ctx.strokeStyle = '#c0bab2';
-  ctx.lineWidth = 2;
-  ctx.moveTo(valToX(RANGE_MIN, W), axisY);
-  ctx.lineTo(valToX(RANGE_MAX, W), axisY);
-  ctx.stroke();
-
-  // Tick marks and labels
-  ctx.fillStyle = '#9a958e';
-  ctx.font = '12px DM Sans, sans-serif';
-  ctx.textAlign = 'center';
-  for(let v = RANGE_MIN; v <= RANGE_MAX; v += 2){
-    const x = valToX(v, W);
-    ctx.beginPath();
-    ctx.strokeStyle = '#c0bab2';
-    ctx.lineWidth = 1;
-    ctx.moveTo(x, axisY - 5);
-    ctx.lineTo(x, axisY + 5);
-    ctx.stroke();
-    ctx.fillText(v, x, axisY + 18);
-  }
-
-  // Draw mean line
-  if(values.length > 0){
-    const meanX = valToX(m, W);
-    ctx.beginPath();
-    ctx.strokeStyle = '#c0392b';
-    ctx.lineWidth = 2;
-    ctx.setLineDash([5,4]);
-    ctx.moveTo(meanX, axisY - 55);
-    ctx.lineTo(meanX, axisY + 5);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // Mean label
-    ctx.fillStyle = '#c0392b';
-    ctx.font = 'bold 12px DM Sans, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('mean', meanX, axisY - 60);
-    ctx.font = '600 13px DM Mono, monospace';
-    ctx.fillText(m % 1 === 0 ? m : m.toFixed(2), meanX, axisY - 45);
-
-    // Balance indicator
-    const m2 = mean(values);
-    let ld=0,rd=0;
-    values.forEach(v=>{if(v<m2)ld+=m2-v;else if(v>m2)rd+=v-m2;});
-    const balanced = Math.abs(ld-rd) < 0.001;
-
-    if(values.length >= 2){
-      ctx.font = '12px DM Sans, sans-serif';
-      ctx.fillStyle = balanced ? '#1a7a4a' : '#9a958e';
-      ctx.textAlign = 'left';
-      ctx.fillText('Left: ' + ld.toFixed(2), 8, 20);
-      ctx.textAlign = 'right';
-      ctx.fillText('Right: ' + rd.toFixed(2), W-8, 20);
-      if(balanced){
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#1a7a4a';
-        ctx.font = '600 12px DM Sans, sans-serif';
-        ctx.fillText('Balanced!', W/2, 20);
-      }
-    }
-  }
-
-  // Draw stacked dots
-  // Count occurrences at each position
-  const counts = {};
-  values.forEach(v => { counts[v] = (counts[v]||0)+1; });
-
-  Object.entries(counts).forEach(([v, cnt]) => {
-    v = parseFloat(v);
-    const x = valToX(v, W);
-    for(let i=0;i<cnt;i++){
-      const cy = axisY - DOT_R - i*(DOT_R*2+2) - 4;
-      ctx.beginPath();
-      ctx.fillStyle = '#2c7be5';
-      ctx.arc(x, cy, DOT_R, 0, Math.PI*2);
-      ctx.fill();
-      ctx.strokeStyle = '#1a5cb0';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
-      ctx.fillStyle = '#fff';
-      ctx.font = 'bold 10px DM Mono, monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText(v, x, cy+4);
-    }
+  ['beam-cvs','numline-cvs'].forEach(id=>{
+    const cvs=document.getElementById(id);
+    const PR=Math.min(window.devicePixelRatio||1,2);
+    const W=cvs.parentElement.clientWidth;
+    const H=id==='beam-cvs'?180:80;
+    cvs.width=W*PR;cvs.height=H*PR;cvs.style.width=W+'px';cvs.style.height=H+'px';
+    const ctx=cvs.getContext('2d');ctx.scale(PR,PR);
   });
-
-  // Mean dot
-  if(values.length > 0){
-    const m = mean(values);
-    const mx = valToX(m, W);
-    ctx.beginPath();
-    ctx.fillStyle = '#c0392b';
-    ctx.arc(mx, axisY, 5, 0, Math.PI*2);
-    ctx.fill();
-  }
-
-  // Hover hint if empty
-  if(values.length === 0){
-    ctx.fillStyle = '#c0bab2';
-    ctx.font = '14px DM Sans, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Click on the number line to place a value', W/2, axisY - 30);
-  }
+  drawAll();
 }
 
-function updateStats(){
-  if(values.length === 0){
-    statsRow.style.display = 'none';
-    insightEl.style.display = 'none';
-    dotListEl.innerHTML = '';
-    return;
+function valToX(v,W){
+  const PAD=40;return PAD+((v-RANGE_MIN)/(RANGE_MAX-RANGE_MIN))*(W-PAD*2);
+}
+function xToVal(x,W){
+  const PAD=40;
+  return Math.round(Math.max(RANGE_MIN,Math.min(RANGE_MAX,
+    RANGE_MIN+(x-PAD)/(W-PAD*2)*(RANGE_MAX-RANGE_MIN))));
+}
+
+function drawBeam(){
+  const cvs=document.getElementById('beam-cvs');
+  const PR=window.devicePixelRatio||1;
+  const W=cvs.width/PR,H=cvs.height/PR;
+  const ctx=cvs.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#0f0d0b';ctx.fillRect(0,0,W,H);
+
+  if(!values.length){
+    ctx.fillStyle='rgba(240,236,227,.15)';ctx.font='13px DM Sans';ctx.textAlign='center';
+    ctx.fillText('Click the number line below to place values',W/2,H/2);return;
   }
-  statsRow.style.display = 'grid';
-  const m = mean(values);
+
+  const m=mean(values);
   let ld=0,rd=0;
   values.forEach(v=>{if(v<m)ld+=m-v;else if(v>m)rd+=v-m;});
+  const imbalance=ld-rd;
+  const maxTilt=22;
+  const tilt=Math.max(-maxTilt,Math.min(maxTilt,imbalance*1.5));
+  const balanced=Math.abs(ld-rd)<0.01;
 
-  document.getElementById('statN').textContent = values.length;
-  document.getElementById('statSum').textContent = values.reduce((a,b)=>a+b,0);
-  document.getElementById('statMean').textContent = m%1===0 ? m : m.toFixed(2);
-  document.getElementById('statLeft').textContent = ld.toFixed(2);
-  document.getElementById('statRight').textContent = rd.toFixed(2);
+  const cx=W/2,pivotY=H-28,beamLen=W*0.44;
+  const tiltR=tilt*Math.PI/180;
 
-  // Dot chips
-  const sorted = [...values].sort((a,b)=>a-b);
-  dotListEl.innerHTML = '';
-  values.forEach((v,i)=>{
-    const chip = document.createElement('div');
-    chip.className='dot-chip';
-    chip.textContent = v;
-    const rm = document.createElement('button');
-    rm.className='remove';
-    rm.textContent='x';
-    rm.onclick=()=>{ values.splice(i,1); updateStats(); draw(); };
-    chip.appendChild(rm);
-    dotListEl.appendChild(chip);
+  // Pivot stand
+  ctx.fillStyle='rgba(240,236,227,.3)';
+  ctx.beginPath();ctx.moveTo(cx-12,pivotY);ctx.lineTo(cx+12,pivotY);ctx.lineTo(cx,pivotY+24);ctx.fill();
+  ctx.beginPath();ctx.arc(cx,pivotY,7,0,Math.PI*2);
+  ctx.fillStyle='rgba(240,236,227,.5)';ctx.fill();
+
+  // Beam
+  ctx.save();ctx.translate(cx,pivotY);ctx.rotate(tiltR);
+  ctx.beginPath();ctx.strokeStyle=balanced?'#5dbf8a':'rgba(240,236,227,.6)';
+  ctx.lineWidth=balanced?3:2.5;
+  ctx.moveTo(-beamLen,0);ctx.lineTo(beamLen,0);ctx.stroke();
+  // End marks
+  [-beamLen,beamLen].forEach(ex=>{
+    ctx.beginPath();ctx.strokeStyle='rgba(240,236,227,.4)';ctx.lineWidth=2;
+    ctx.moveTo(ex,-8);ctx.lineTo(ex,8);ctx.stroke();
+  });
+  ctx.restore();
+
+  // Draw stacked weights on beam ends based on distance sums
+  const PAD=40;
+  values.forEach(v=>{
+    const fromMean=v-m;
+    const beamX=cx+(fromMean/RANGE_MAX)*beamLen*0.85;
+    const beamY=pivotY+beamX*Math.sin(tiltR)*0;
+    // Weight position on rotated beam
+    const rx=beamX-cx,ry=0;
+    const rotX=rx*Math.cos(tiltR)-ry*Math.sin(tiltR)+cx;
+    const rotY=rx*Math.sin(tiltR)+ry*Math.cos(tiltR)+pivotY;
+    ctx.beginPath();
+    const isLeft=v<m,isRight=v>m,isMean=v===m;
+    ctx.fillStyle=isLeft?'rgba(107,163,214,.8)':isRight?'rgba(224,112,112,.8)':'rgba(232,168,64,.8)';
+    ctx.arc(rotX,rotY-DOT_R-4,DOT_R,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,.3)';ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle='#fff';ctx.font='bold 9px DM Mono';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText(v,rotX,rotY-DOT_R-4);ctx.textBaseline='alphabetic';
   });
 
-  // Insight
-  insightEl.style.display='block';
-  if(values.length === 1){
-    insightEl.innerHTML = 'With a single value, the mean equals that value. Left and right distances are both 0.';
-  } else if(values.length === 2){
-    const a=values[0],b=values[1];
-    insightEl.innerHTML = `With two values, the mean <strong>${m%1===0?m:m.toFixed(2)}</strong> always lies exactly <strong>halfway</strong> between them — the left and right distances are equal.`;
-  } else {
-    insightEl.innerHTML = `The mean <strong>${m%1===0?m:m.toFixed(2)}</strong> balances the data: left distances sum to <strong>${ld.toFixed(2)}</strong> and right distances sum to <strong>${rd.toFixed(2)}</strong>. Try moving a dot — the mean shifts to maintain the balance.`;
+  // Mean marker on beam
+  {
+    const rx=0,ry=0;
+    const rotX=rx*Math.cos(tiltR)-ry*Math.sin(tiltR)+cx;
+    const rotY=rx*Math.sin(tiltR)+ry*Math.cos(tiltR)+pivotY;
+    ctx.beginPath();ctx.fillStyle='#e8a840';ctx.arc(rotX,rotY,5,0,Math.PI*2);ctx.fill();
+  }
+
+  // Distance labels
+  ctx.fillStyle='rgba(107,163,214,.7)';ctx.font='11px DM Mono';ctx.textAlign='left';
+  ctx.fillText(`Left: ${ld.toFixed(1)}`,PAD,20);
+  ctx.fillStyle='rgba(224,112,112,.7)';ctx.textAlign='right';
+  ctx.fillText(`Right: ${rd.toFixed(1)}`,W-PAD,20);
+  if(balanced){
+    ctx.fillStyle='#5dbf8a';ctx.font='bold 11px DM Mono';ctx.textAlign='center';
+    ctx.fillText('BALANCED ✓',W/2,20);
   }
 }
 
-cvs.addEventListener('click', e=>{
-  const r = cvs.getBoundingClientRect();
-  const x = (e.clientX - r.left);
-  const W = r.width;
-  const v = xToVal(x, W);
+function drawNumLine(){
+  const cvs=document.getElementById('numline-cvs');
+  const PR=window.devicePixelRatio||1;
+  const W=cvs.width/PR,H=cvs.height/PR;
+  const ctx=cvs.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#181512';ctx.fillRect(0,0,W,H);
 
-  if(mode === 'add'){
-    if(values.length < 12) { values.push(v); updateStats(); draw(); }
-  } else {
-    // find closest dot to click
-    let closest = -1, minDist = Infinity;
-    values.forEach((dv, i)=>{
-      const dx = Math.abs(valToX(dv, W) - x);
-      if(dx < minDist){ minDist=dx; closest=i; }
-    });
-    if(closest >= 0 && minDist < 20){ values.splice(closest,1); updateStats(); draw(); }
+  const axY=H*0.55;
+  ctx.beginPath();ctx.strokeStyle='rgba(240,236,227,.3)';ctx.lineWidth=1.5;
+  ctx.moveTo(valToX(RANGE_MIN,W),axY);ctx.lineTo(valToX(RANGE_MAX,W),axY);ctx.stroke();
+
+  for(let v=0;v<=20;v+=2){
+    const x=valToX(v,W);
+    ctx.beginPath();ctx.strokeStyle='rgba(240,236,227,.2)';ctx.lineWidth=1;
+    ctx.moveTo(x,axY-4);ctx.lineTo(x,axY+4);ctx.stroke();
+    ctx.fillStyle='rgba(240,236,227,.4)';ctx.font='10px DM Mono';ctx.textAlign='center';
+    ctx.fillText(v,x,axY+16);
   }
+
+  // Mean line
+  if(values.length){
+    const m=mean(values);const mx=valToX(m,W);
+    ctx.beginPath();ctx.strokeStyle='#e8a840';ctx.lineWidth=2;ctx.setLineDash([5,4]);
+    ctx.moveTo(mx,6);ctx.lineTo(mx,axY);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='#e8a840';ctx.font='bold 10px DM Mono';ctx.textAlign='center';
+    ctx.fillText('mean='+fmt(m),mx,8);
+  }
+
+  // Value dots
+  const counts={};values.forEach(v=>counts[v]=(counts[v]||0)+1);
+  Object.entries(counts).forEach(([v,cnt])=>{
+    const x=valToX(+v,W);
+    for(let i=0;i<cnt;i++){
+      ctx.beginPath();ctx.fillStyle='rgba(107,163,214,.8)';
+      ctx.arc(x,axY-8-i*18,6,0,Math.PI*2);ctx.fill();
+    }
+  });
+}
+
+function drawAll(){drawBeam();drawNumLine();}
+
+function updateStats(){
+  if(!values.length){
+    document.getElementById('stats-section').style.display='none';
+    document.getElementById('dots-section').style.display='none';
+    document.getElementById('insight-text').textContent='Click the number line below to place values.';
+    return;
+  }
+  document.getElementById('stats-section').style.display='grid';
+  document.getElementById('dots-section').style.display='flex';
+  const m=mean(values);
+  let ld=0,rd=0;values.forEach(v=>{if(v<m)ld+=m-v;else if(v>m)rd+=v-m;});
+  document.getElementById('s-n').textContent=values.length;
+  document.getElementById('s-sum').textContent=values.reduce((a,b)=>a+b,0);
+  document.getElementById('s-mean').textContent=fmt(m);
+  document.getElementById('s-left').textContent=ld.toFixed(2);
+  document.getElementById('s-right').textContent=rd.toFixed(2);
+
+  const chips=document.getElementById('dot-chips');chips.innerHTML='';
+  values.forEach((v,i)=>{
+    const c=document.createElement('span');c.className='dot-chip';c.textContent=v;
+    c.addEventListener('pointerdown',e=>{
+      e.preventDefault();values.splice(i,1);updateStats();drawAll();
+    });
+    chips.appendChild(c);
+  });
+
+  const it=document.getElementById('insight-text');
+  const balanced=Math.abs(ld-rd)<0.01;
+  if(values.length===1){it.innerHTML='With one value, the mean equals that value. No imbalance.';}
+  else if(values.length===2){it.innerHTML=`The mean <strong>${fmt(m)}</strong> sits exactly halfway — both dots are equidistant. Left = Right = ${ld.toFixed(2)}.`;}
+  else if(balanced){it.innerHTML=`<strong>Perfectly balanced!</strong> Mean = <strong>${fmt(m)}</strong>. Left distances sum to <strong>${ld.toFixed(2)}</strong>, right distances also <strong>${rd.toFixed(2)}</strong>. This is what the mean means.`;}
+  else{it.innerHTML=`Mean = <strong>${fmt(m)}</strong>. Left distances: <strong>${ld.toFixed(2)}</strong>, Right: <strong>${rd.toFixed(2)}</strong>. The beam tilts toward the heavier side. Add a value on the lighter side to balance it.`;}
+}
+
+// Clicks on number line
+const nlCvs=document.getElementById('numline-cvs');
+nlCvs.addEventListener('pointerdown',e=>{
+  e.preventDefault();
+  const r=nlCvs.getBoundingClientRect();
+  const x=e.clientX-r.left,W=r.width;
+  const v=xToVal(x,W);
+  if(mode==='add'){
+    if(values.length<14){values.push(v);}
+  } else {
+    let closest=-1,minD=Infinity;
+    values.forEach((dv,i)=>{const d=Math.abs(valToX(dv,W)-x);if(d<minD){minD=d;closest=i;}});
+    if(closest>=0&&minD<24) values.splice(closest,1);
+  }
+  updateStats();drawAll();
+},{passive:false});
+
+// Mode buttons
+document.getElementById('mode-add').addEventListener('click',()=>{
+  mode='add';
+  document.getElementById('mode-add').classList.add('active');
+  document.getElementById('mode-rm').classList.remove('active');
+  nlCvs.style.cursor='crosshair';
+});
+document.getElementById('mode-rm').addEventListener('click',()=>{
+  mode='rm';
+  document.getElementById('mode-rm').classList.add('active');
+  document.getElementById('mode-add').classList.remove('active');
+  nlCvs.style.cursor='pointer';
 });
 
-modeAdd.onclick = ()=>{
-  mode='add';
-  modeAdd.classList.add('active');
-  modeRemove.classList.remove('active');
-  cvs.style.cursor='crosshair';
-};
-modeRemove.onclick = ()=>{
-  mode='remove';
-  modeRemove.classList.add('active');
-  modeAdd.classList.remove('active');
-  cvs.style.cursor='pointer';
-};
+// Presets
+document.querySelectorAll('[data-v]').forEach(b=>b.addEventListener('click',()=>{
+  values=b.dataset.v.split(',').map(Number);updateStats();drawAll();
+}));
+document.getElementById('p-clear').addEventListener('click',()=>{values=[];updateStats();drawAll();});
 
-function setPreset(arr){ values=[...arr]; updateStats(); draw(); }
-btnPreset1.onclick = ()=>setPreset([3,7]);
-btnPreset2.onclick = ()=>setPreset([10,10,11,17]);
-btnPreset3.onclick = ()=>setPreset([3,5,6,8,13]);
-btnClear.onclick = ()=>{ values=[]; updateStats(); draw(); };
-
-window.addEventListener('resize', resize);
+window.addEventListener('resize',resize);
 resize();
 </script>
 </body>
